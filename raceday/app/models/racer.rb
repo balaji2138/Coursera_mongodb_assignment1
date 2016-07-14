@@ -1,6 +1,9 @@
 require 'mongo'
 
 class Racer
+
+  attr_accessor :id, :number, :first_name, :last_name, :gender, :group, :secs 
+
   def self.mongo_client
     # Mongo::Client.new('mongodb://localhost:27017')
     Mongoid::Clients.default
@@ -12,10 +15,18 @@ class Racer
 
   def self.all(prototype={}, sort={number: 1}, skip=0, limit=nil)
     if limit.nil?
-      result=collection.find(prototype).sort(sort).skip(skip)
+      result=collection.
+                find(prototype).
+                sort(sort).
+                skip(skip)
     else
-      result=collection.find(prototype).sort(sort).limit(limit).skip(skip)
+      result=collection.
+                find(prototype).
+                sort(sort).
+                limit(limit).
+                skip(skip)
     end
+
   end
 
 end
