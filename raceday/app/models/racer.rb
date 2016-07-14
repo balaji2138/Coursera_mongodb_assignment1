@@ -36,7 +36,10 @@ class Racer
                 limit(limit).
                 skip(skip)
     end
-
+  end
+  def self.find(id)
+    result = collection.find(:_id => BSON::ObjectId(id)).first
+    return result.nil? ? nil : Racer.new(result)
   end
 
 end
