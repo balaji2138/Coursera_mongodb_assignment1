@@ -42,4 +42,30 @@ class Racer
     return result.nil? ? nil : Racer.new(result)
   end
 
+  def save
+    params={}
+    # params[:_id] = BSON::ObjectId(@id)
+    params[:number] = @number
+    params[:first_name] = @first_name
+    params[:last_name] = @last_name
+    params[:gender] = @gender
+    params[:group] = @group
+    params[:secs] = @secs
+    result = self.class.collection.insert_one(params)
+    @id = result.inserted_id
+  end
+
+  def update(params)
+    @number = params[:number].to_i
+    @first_name = params[:first_name]
+    @last_name = params[:last_name]
+    @gender = params[:gender]
+    @group = params[:group]
+    @secs = params[:secs].to_i
+    racer=find(@id)
+
+    racer.update_one(params)
+
+  end
+
 end
