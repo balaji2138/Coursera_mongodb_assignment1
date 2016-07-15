@@ -56,16 +56,20 @@ class Racer
   end
 
   def update(params)
+
     @number = params[:number].to_i
     @first_name = params[:first_name]
     @last_name = params[:last_name]
     @gender = params[:gender]
     @group = params[:group]
     @secs = params[:secs].to_i
-    racer=find(@id)
+    # racer1=self.find(@id)
 
-    racer.update_one(params)
+    self.class.collection.find(_id:@id).update_one(:$set => params)
+  end
 
+  def destroy
+    self.class.collection.find(_id:@id).delete_one
   end
 
 end
